@@ -1,0 +1,13 @@
+{
+  "name": "truelensai-extension",
+  "private": true,
+  "version": "1.0.0",
+  "description": "TrueLensAI Chrome extension (built output lives in dist/)",
+  "scripts": {
+    "typecheck": "tsc --noEmit --pretty false"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.1.32",
+    "typescript": "^5.7.2"
+  }
+}
