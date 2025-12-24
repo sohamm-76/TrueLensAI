@@ -4,10 +4,14 @@
   "version": "1.0.0",
   "description": "TrueLensAI Chrome extension (built output lives in dist/)",
   "scripts": {
-    "typecheck": "tsc --noEmit --pretty false"
+    "typecheck": "tsc --noEmit --pretty false",
+    "build": "webpack --mode production"
   },
   "devDependencies": {
     "@types/chrome": "^0.1.32",
-    "typescript": "^5.7.2"
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.7.2",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1"
   }
 }

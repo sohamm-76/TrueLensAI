@@ -25,11 +25,7 @@
       "run_at": "document_end"
     }
   ],
-  "side_panel": {
-    "default_path": "index.html"
-  },
   "action": {
-    "default_popup": "index.html",
     "default_title": "TrueLensAI - News Verification"
   },
   "icons": {
