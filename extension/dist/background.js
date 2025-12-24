@@ -123,4 +123,4 @@ chrome.runtime.onInstalled.addListener(() => {
   } catch (err) {
     console.warn('Failed to seed firebase config:', err)
   }
-})()
+})();
