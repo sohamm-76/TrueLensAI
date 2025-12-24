@@ -1,66 +1,143 @@
-# TrueLensAI (Backend API + Chrome Extension)
+# TrueLensAI 🔍
 
-This repo contains:
-- **`backend/`**: Express API that verifies Firebase ID tokens and uses **Google Gemini** to analyze articles.
-- **`extension/`**: A Chrome Extension (MV3). The **loadable build output** is in `extension/dist/`.
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![Chrome Extension](https://img.shields.io/badge/Chrome%20Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/)
+[![Webpack](https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black)](https://webpack.js.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-## Backend setup
+**AI-Powered Article Analysis Tool** – Verify facts, detect bias, and get insights with TrueLensAI's backend API and Chrome extension.
 
-### 1) Create `backend/.env`
+## 🚀 Features
 
-Copy the template:
-- Copy `backend/env.example` → `backend/.env`
-- Fill in:
-  - `FIREBASE_PROJECT_ID`
-  - `GOOGLE_GENERATIVE_AI_API_KEY`
-  - (optional) `SERPER_API_KEY`
+- **Article Analysis**: Extract and analyze web content using Google Gemini AI
+- **Fact-Checking**: Optional integration with Serper.dev for real-time verification
+- **Chrome Extension**: Seamless browser integration with MV3 manifest
+- **User Authentication**: Secure Firebase-based auth and user profiles
+- **Chat Interface**: Interactive AI conversations about analyzed content
+- **Inaccuracy Reporting**: Community-driven content moderation
+- **Responsive UI**: Built with Tailwind CSS for modern design
 
-### 2) Add Firebase Admin service account JSON
+## 🛠️ Tech Stack
 
-Place your Firebase service account JSON here:
-- `backend/firebase-key.json`
+### Backend
+- **Node.js** – Runtime environment
+- **Express.js** – Web framework for API
+- **Firebase Admin SDK** – Authentication and database
+- **Google Generative AI** – AI-powered content analysis
+- **Serper.dev** – Fact-checking API (optional)
 
-Or set `FIREBASE_SERVICE_ACCOUNT_PATH` in `backend/.env` to the file path.
+### Frontend (Extension)
+- **TypeScript** – Type-safe JavaScript
+- **Chrome Extension API** – Browser integration
+- **Webpack** – Module bundler
+- **Tailwind CSS** – Utility-first CSS framework
 
-### 3) Start the API
+### Development Tools
+- **ESLint** – Code linting
+- **Stylelint** – CSS linting
+- **Prettier** – Code formatting
 
-From the repo root:
+## 📦 Installation & Setup
 
-```bash
-npm run backend:start
-```
+### Prerequisites
+- Node.js (v16+)
+- npm or yarn
+- Google Chrome browser
+- Firebase project
+- Google Cloud API key
 
-The server should run at `http://localhost:5000` and expose:
-- `GET /health`
-- `POST /api/analyze` (requires Firebase ID token)
-- `POST /api/chat` (requires Firebase ID token)
-- `POST /api/report-inaccuracy` (requires Firebase ID token)
-- `GET /api/user/history` (requires Firebase ID token)
-- `GET /api/user/profile` (requires Firebase ID token)
+### Backend Setup
 
-## Extension setup (Chrome)
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/sohamm-76/TrueLensAI.git
+   cd TrueLensAI
+   ```
 
-### 1) Load the extension
+2. **Install dependencies**
+   ```bash
+   npm install
+   cd backend && npm install
+   cd ../extension && npm install
+   ```
 
-1. Open Chrome → `chrome://extensions`
-2. Enable **Developer mode**
-3. Click **Load unpacked**
-4. Select: `extension/dist`
+3. **Configure environment**
+   - Copy `backend/env.example` to `backend/.env`
+   - Fill in your API keys:
+     - `FIREBASE_PROJECT_ID`
+     - `GOOGLE_GENERATIVE_AI_API_KEY`
+     - `SERPER_API_KEY` (optional)
 
-### 2) Configure OAuth (required)
+4. **Add Firebase credentials**
+   - Place your Firebase service account JSON at `backend/firebase-key.json`
+   - Or set `FIREBASE_SERVICE_ACCOUNT_PATH` in `.env`
 
-In `extension/dist/manifest.json`, replace:
-- `oauth2.client_id`: `REPLACE_WITH_YOUR_CLIENT_ID.apps.googleusercontent.com`
+5. **Start the backend**
+   ```bash
+   npm run backend:start
+   ```
+   Server runs at `http://localhost:5000`
 
-### 3) Firebase Web config
+### Extension Setup
 
-The extension currently bundles Firebase web config at:
-- `extension/dist/firebase-config.json`
+1. **Build the extension**
+   ```bash
+   npm run build
+   ```
 
-If you want to use your own Firebase project, update that JSON.
+2. **Load in Chrome**
+   - Open `chrome://extensions`
+   - Enable "Developer mode"
+   - Click "Load unpacked"
+   - Select `extension/dist`
 
-## Security notes
+3. **Configure OAuth**
+   - In `extension/dist/manifest.json`, replace `oauth2.client_id` with your Google OAuth client ID
 
-- **Do not commit** `backend/firebase-key.json` (service account credentials). This repo’s `.gitignore` ignores it.
-- The extension’s `firebase-config.json` is **not a secret**, but it ties the build to a Firebase project.
+4. **Update Firebase config** (optional)
+   - Edit `extension/dist/firebase-config.json` for your Firebase project
+
+## 🔧 API Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/health` | Health check | No |
+| POST | `/api/analyze` | Analyze article content | Yes |
+| POST | `/api/chat` | AI chat about content | Yes |
+| POST | `/api/report-inaccuracy` | Report content issues | Yes |
+| GET | `/api/user/history` | User analysis history | Yes |
+| GET | `/api/user/profile` | User profile data | Yes |
+
+## 🔒 Security
+
+- **Never commit secrets**: `.env` files and `firebase-key.json` are gitignored
+- **Regenerate keys**: If exposed, immediately revoke and regenerate API keys
+- **Environment variables**: Use production-grade secret management
+- **HTTPS**: Always use secure connections in production
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Google Gemini for AI capabilities
+- Firebase for backend infrastructure
+- Chrome Extension community for best practices
+
+---
+
+**Made with ❤️ for transparent and accurate information**
 
